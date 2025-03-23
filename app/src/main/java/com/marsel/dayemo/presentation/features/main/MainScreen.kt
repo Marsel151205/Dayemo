@@ -18,8 +18,11 @@ import com.marsel.dayemo.R
 import com.marsel.dayemo.presentation.utils.navigation.NavigationItem
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemColors
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -41,6 +44,7 @@ fun MainScreen(
 ) {
 
     val navController = rememberNavController()
+    var isNavigationBarVisible by remember { mutableStateOf(true) }
 
     val navigationItems = listOf(
         NavigationItem.Home,
@@ -60,63 +64,73 @@ fun MainScreen(
         }
     }
 
+    LaunchedEffect(key1 = navController) {
+        navController.currentBackStackEntryFlow.collect { backStackEntry ->
+            isNavigationBarVisible = when (backStackEntry.destination.route) {
+                NavigationRoute.ADD.route -> false
+                else -> true
+            }
+        }
+    }
+
     Scaffold(
         Modifier.fillMaxWidth(),
         bottomBar = {
-            NavigationBar(
-                containerColor = colorResource(R.color.middle_gray),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 60.dp)
-                    .padding(bottom = 90.dp)
-                    .clip(RoundedCornerShape(60.dp)),
-                windowInsets = WindowInsets(0.dp )
-            ) {
-                navigationItems.forEachIndexed { index, navItem ->
+            if (isNavigationBarVisible) {
+                NavigationBar(
+                    containerColor = colorResource(R.color.middle_gray),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 60.dp)
+                        .padding(bottom = 90.dp)
+                        .clip(RoundedCornerShape(60.dp)),
+                    windowInsets = WindowInsets(0.dp)
+                ) {
+                    navigationItems.forEachIndexed { index, navItem ->
 
-                    val isSelected = index == selectedItem.value
+                        val isSelected = index == selectedItem.value
 
-                    this@NavigationBar.NavigationBarItem(
-                        selected = isSelected,
-                        onClick = {
-                            selectedItem.value = index
-                            currentRoute.value = navItem.route
-                            navController.navigate(navItem.route) {
-                                navController.graph.startDestinationRoute?.let { route ->
-                                    popUpTo(route) {
-                                        saveState = true
+                        this@NavigationBar.NavigationBarItem(
+                            selected = isSelected,
+                            onClick = {
+                                selectedItem.value = index
+                                currentRoute.value = navItem.route
+                                navController.navigate(navItem.route) {
+                                    navController.graph.startDestinationRoute?.let { route ->
+                                        popUpTo(route) {
+                                            saveState = true
+                                        }
                                     }
+                                    launchSingleTop = true
+                                    restoreState = true
                                 }
-                                launchSingleTop = true
-                                restoreState = true
-                            }
-                        },
-                        icon = {
-                            Image(
-                                painter = painterResource(navItem.icon),
-                                contentDescription = "Icon",
-                                Modifier
-                                    .size(30.dp)
-                            )
-                        },
-                        modifier = Modifier
-                            .height(30.dp)
-                            .width(30.dp)
-                            .padding(horizontal = 10.dp),
+                            },
+                            icon = {
+                                Image(
+                                    painter = painterResource(navItem.icon),
+                                    contentDescription = "Icon",
+                                    Modifier
+                                        .size(30.dp)
+                                )
+                            },
+                            modifier = Modifier
+                                .height(30.dp)
+                                .width(30.dp)
+                                .padding(horizontal = 10.dp),
 
-                        colors = NavigationBarItemColors(
-                            selectedIconColor = colorResource(id = R.color.white),
-                            selectedTextColor = colorResource(id = R.color.white),
-                            selectedIndicatorColor = colorResource(id = R.color.transparent),
-                            unselectedIconColor = colorResource(id = R.color.disable_navigation_bar_item),
-                            unselectedTextColor = colorResource(id = R.color.disable_navigation_bar_item),
-                            disabledIconColor = colorResource(id = R.color.disable_navigation_bar_item),
-                            disabledTextColor = colorResource(id = R.color.disable_navigation_bar_item)
+                            colors = NavigationBarItemColors(
+                                selectedIconColor = colorResource(id = R.color.white),
+                                selectedTextColor = colorResource(id = R.color.white),
+                                selectedIndicatorColor = colorResource(id = R.color.transparent),
+                                unselectedIconColor = colorResource(id = R.color.disable_navigation_bar_item),
+                                unselectedTextColor = colorResource(id = R.color.disable_navigation_bar_item),
+                                disabledIconColor = colorResource(id = R.color.disable_navigation_bar_item),
+                                disabledTextColor = colorResource(id = R.color.disable_navigation_bar_item)
+                            )
                         )
-                    )
+                    }
                 }
             }
-
         }
     ) {
         ContentScreen(
