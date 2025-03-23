@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "131891156417",
+    "project_id": "dayemo-93eed",
+    "storage_bucket": "dayemo-93eed.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131891156417:android:6e49c07790c266baba4b40",
+        "android_client_info": {
+          "package_name": "com.marsel.dayemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "131891156417-jlddobhku1llsuvco77mao22qj3b600v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.marsel.dayemo",
+            "certificate_hash": "559977fec30c8c23558c8c961459ad58e21fdc19"
+          }
+        },
+        {
+          "client_id": "131891156417-jklqdr1jvgut770ca71gqorv0ddqe792.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHihB2mzvvd-T_zWVy0CqTnvLa4Ysd4xA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "131891156417-jklqdr1jvgut770ca71gqorv0ddqe792.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

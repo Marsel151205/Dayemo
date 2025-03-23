@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.google.service)
 }
 
 android {
@@ -79,4 +80,10 @@ dependencies {
 
     // Navigation Component
     implementation(libs.navigation.compose)
+
+    // Firebase BoM
+    implementation(platform(libs.firebase.bom))
+
+    // Firebase Analytics
+    implementation(libs.firebase.analytics)
 }
