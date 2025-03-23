@@ -1,4 +1,4 @@
-package com.marsel.dayemo.presentation.features
+package com.marsel.dayemo.presentation.features.calendar
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
