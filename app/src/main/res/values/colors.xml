@@ -8,4 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="middle_gray">#754B4747</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="disable_navigation_bar_item">#99FFFFFF</color>
+    <color name="background_black">#050505</color>
 </resources>
