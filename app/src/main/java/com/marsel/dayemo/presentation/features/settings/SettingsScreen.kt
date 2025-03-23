@@ -1,4 +1,4 @@
-package com.marsel.dayemo.presentation.features
+package com.marsel.dayemo.presentation.features.settings
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,7 +11,7 @@ import androidx.navigation.NavHostController
 import com.marsel.dayemo.R
 
 @Composable
-fun StatisticsScreen(
+fun SettingsScreen(
     navHostController: NavHostController
 ) {
     Column(
@@ -19,7 +19,7 @@ fun StatisticsScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "StatisticsScreen",
+            text = "SettingsScreen",
             color = colorResource(R.color.black),
             fontSize = 18.sp
         )
