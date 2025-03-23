@@ -1,42 +1,37 @@
-package com.marsel.dayemo.presentation
+package com.marsel.dayemo.presentation.features.main
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.marsel.dayemo.R
 import com.marsel.dayemo.presentation.utils.navigation.NavigationItem
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.marsel.dayemo.presentation.features.AddNewEmotionScreen
-import com.marsel.dayemo.presentation.features.CalendarScreen
-import com.marsel.dayemo.presentation.features.HomeScreen
-import com.marsel.dayemo.presentation.features.SettingsScreen
-import com.marsel.dayemo.presentation.features.StatisticsScreen
+import com.marsel.dayemo.presentation.features.statistics.StatisticsScreen
+import com.marsel.dayemo.presentation.features.addnewemotion.AddNewEmotionScreen
+import com.marsel.dayemo.presentation.features.calendar.CalendarScreen
+import com.marsel.dayemo.presentation.features.home.HomeScreen
+import com.marsel.dayemo.presentation.features.settings.SettingsScreen
 import com.marsel.dayemo.tools.NavigationRoute
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -68,48 +63,60 @@ fun MainScreen(
     Scaffold(
         Modifier.fillMaxWidth(),
         bottomBar = {
-            Box(
+            NavigationBar(
+                containerColor = colorResource(R.color.middle_gray),
                 modifier = Modifier
-                    .padding(horizontal = 20.dp)
+                    .fillMaxWidth()
+                    .padding(horizontal = 60.dp)
+                    .padding(bottom = 90.dp)
+                    .clip(RoundedCornerShape(60.dp)),
+                windowInsets = WindowInsets(0.dp )
             ) {
-                NavigationBar(
-                    containerColor = colorResource(R.color.middle_gray),
-                    modifier = Modifier
-                        .blur(50.dp)
-                        .clip(RoundedCornerShape(15.dp, 15.dp, 15.dp, 15.dp))
-                ) {
-                    navigationItems.forEachIndexed { index, navItem ->
+                navigationItems.forEachIndexed { index, navItem ->
 
-                        val isSelected = index == selectedItem.value
+                    val isSelected = index == selectedItem.value
 
-                        this@NavigationBar.NavigationBarItem(
-                            selected = isSelected,
-                            onClick = {
-                                selectedItem.value = index
-                                currentRoute.value = navItem.route
-                                navController.navigate(navItem.route) {
-                                    navController.graph.startDestinationRoute?.let { route ->
-                                        popUpTo(route) {
-                                            saveState = true
-                                        }
+                    this@NavigationBar.NavigationBarItem(
+                        selected = isSelected,
+                        onClick = {
+                            selectedItem.value = index
+                            currentRoute.value = navItem.route
+                            navController.navigate(navItem.route) {
+                                navController.graph.startDestinationRoute?.let { route ->
+                                    popUpTo(route) {
+                                        saveState = true
                                     }
-                                    launchSingleTop = true
-                                    restoreState = true
                                 }
-                            },
-                            icon = {
-                                Image(
-                                    painter = painterResource(navItem.icon),
-                                    contentDescription = "Icon",
-                                )
-                            },
-                            Modifier
-                                .height(19.dp)
-                                .width(19.dp)
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        },
+                        icon = {
+                            Image(
+                                painter = painterResource(navItem.icon),
+                                contentDescription = "Icon",
+                                Modifier
+                                    .size(30.dp)
+                            )
+                        },
+                        modifier = Modifier
+                            .height(30.dp)
+                            .width(30.dp)
+                            .padding(horizontal = 10.dp),
+
+                        colors = NavigationBarItemColors(
+                            selectedIconColor = colorResource(id = R.color.white),
+                            selectedTextColor = colorResource(id = R.color.white),
+                            selectedIndicatorColor = colorResource(id = R.color.transparent),
+                            unselectedIconColor = colorResource(id = R.color.disable_navigation_bar_item),
+                            unselectedTextColor = colorResource(id = R.color.disable_navigation_bar_item),
+                            disabledIconColor = colorResource(id = R.color.disable_navigation_bar_item),
+                            disabledTextColor = colorResource(id = R.color.disable_navigation_bar_item)
                         )
-                    }
+                    )
                 }
             }
+
         }
     ) {
         ContentScreen(
