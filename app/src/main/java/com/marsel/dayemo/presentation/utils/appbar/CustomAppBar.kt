@@ -27,14 +27,15 @@ fun CustomAppBar(
     leftIcon: Int?,
     rightIcon: Int?,
     onLeftIconClick: () -> Unit,
-    onRightIconClick: () -> Unit
+    onRightIconClick: () -> Unit,
+    modifier: Modifier
 ) {
 
     Box(
-        modifier = Modifier
+        modifier = modifier
+            .padding(horizontal = 20.dp)
             .fillMaxWidth()
             .background(colorResource(id = R.color.transparent))
-            .padding(horizontal = 20.dp)
     ) {
 
         leftIcon?.let {

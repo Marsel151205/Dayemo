@@ -46,7 +46,8 @@ fun HomeScreen(
             leftIcon = R.drawable.ic_home_back,
             rightIcon = R.drawable.ic_home_next,
             onLeftIconClick = { Log.e("clickLeftIcon", "true") },
-            onRightIconClick = { Log.e("clickRightIcon", "true") }
+            onRightIconClick = { Log.e("clickRightIcon", "true") },
+            modifier = Modifier
         )
         LaunchedEffect(emotionList) {
             isEmpty = emotionList.layoutInfo.totalItemsCount == 0
@@ -58,7 +59,8 @@ fun HomeScreen(
             ErrorItem(
                 errorIcon = R.drawable.empty_note,
                 errorTitle = "Записки отсуствуют",
-                titleSize = 18
+                titleSize = 18,
+                titleColor = R.color.disable_navigation_bar_item
             )
             Spacer(modifier = Modifier.weight(1f))
         } else {

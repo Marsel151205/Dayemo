@@ -11,4 +11,9 @@
     <color name="transparent">#00FFFFFF</color>
     <color name="disable_navigation_bar_item">#99FFFFFF</color>
     <color name="background_black">#050505</color>
+    <color name="green">#3BB442</color>
+    <color name="salad">#B3E754</color>
+    <color name="yellow">#FFDD15</color>
+    <color name="orange">#F89620</color>
+    <color name="red">#EC1D24</color>
 </resources>

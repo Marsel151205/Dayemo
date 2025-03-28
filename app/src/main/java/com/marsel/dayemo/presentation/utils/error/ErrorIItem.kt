@@ -23,7 +23,8 @@ import com.marsel.dayemo.presentation.utils.textstyle.StapelFontFamily
 fun ErrorItem(
     errorIcon: Int,
     errorTitle: String,
-    titleSize: Int
+    titleSize: Int,
+    titleColor: Int
 ) {
 
     Column(
@@ -41,7 +42,7 @@ fun ErrorItem(
 
         Text(
             text = errorTitle,
-            color = colorResource(id = R.color.white),
+            color = colorResource(id = titleColor),
             fontSize = titleSize.sp,
             fontFamily = StapelFontFamily,
             fontWeight = FontWeight.Bold,

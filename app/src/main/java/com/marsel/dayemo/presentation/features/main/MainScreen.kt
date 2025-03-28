@@ -80,9 +80,9 @@ fun MainScreen(
                 NavigationBar(
                     containerColor = colorResource(R.color.middle_gray),
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 60.dp)
                         .padding(bottom = 90.dp)
+                        .padding(horizontal = 60.dp)
+                        .fillMaxWidth()
                         .clip(RoundedCornerShape(60.dp)),
                     windowInsets = WindowInsets(0.dp)
                 ) {
