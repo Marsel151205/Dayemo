@@ -22,19 +22,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.marsel.dayemo.R
+import com.marsel.dayemo.presentation.models.EmotionModel
 import com.marsel.dayemo.presentation.utils.textstyle.StapelFontFamily
 
 @Composable
 fun EmotionRow(
-    modifier: Modifier
+    modifier: Modifier,
+    onClickItem: (model: EmotionModel) -> Unit
 ) {
 
     val emotionList = listOf(
-        Pair(R.drawable.ic_green_emotion, "Супер") to R.color.green,
-        Pair(R.drawable.ic_salad_emotion, "Хорошо") to R.color.salad,
-        Pair(R.drawable.ic_yellow_emotion, "Так себе") to R.color.yellow,
-        Pair(R.drawable.ic_orange_emotion, "Плохо") to R.color.orange,
-        Pair(R.drawable.ic_red_emotion, "Ужасно") to R.color.red
+        EmotionModel(R.drawable.ic_green_emotion, "Супер", R.color.green),
+        EmotionModel(R.drawable.ic_salad_emotion, "Хорошо", R.color.salad),
+        EmotionModel(R.drawable.ic_yellow_emotion, "Так себе", R.color.yellow),
+        EmotionModel(R.drawable.ic_orange_emotion, "Плохо", R.color.orange),
+        EmotionModel(R.drawable.ic_red_emotion, "Ужасно", R.color.red)
     )
 
     Row(
@@ -42,32 +44,32 @@ fun EmotionRow(
             .padding(horizontal = 10.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-            emotionList.forEach { (pair, labelColor) ->
-                val (icon, label) = pair
-
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
+        emotionList.forEach { item ->
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .clickable {
+                        onClickItem(item)
+                    }
+            ) {
+                Image(
+                    painter = painterResource(id = item.icon),
+                    contentDescription = "Mood Icon",
                     modifier = Modifier
-                        .clickable {  }
-                ) {
-                    Image(
-                        painter = painterResource(id = icon),
-                        contentDescription = "Mood Icon",
-                        modifier = Modifier
-                            .height(50.dp)
-                            .width(50.dp)
-                    )
+                        .height(50.dp)
+                        .width(50.dp)
+                )
 
-                    Text(
-                        text = label,
-                        color = colorResource(labelColor),
-                        fontSize = 14.sp,
-                        fontFamily = StapelFontFamily,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(top = 10.dp)
-                    )
-                }
+                Text(
+                    text = item.label,
+                    color = colorResource(item.labelColor),
+                    fontSize = 14.sp,
+                    fontFamily = StapelFontFamily,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .padding(top = 10.dp)
+                )
             }
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.marsel.dayemo.presentation.features.main
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,20 +29,24 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import com.google.gson.Gson
 import com.marsel.dayemo.presentation.features.statistics.StatisticsScreen
-import com.marsel.dayemo.presentation.features.addnewemotion.AddNewEmotionScreen
+import com.marsel.dayemo.presentation.features.add_emotion.AddNewEmotionScreen
+import com.marsel.dayemo.presentation.features.add_emotion.details.AddEmotionDetail
 import com.marsel.dayemo.presentation.features.calendar.CalendarScreen
 import com.marsel.dayemo.presentation.features.home.HomeScreen
 import com.marsel.dayemo.presentation.features.settings.SettingsScreen
-import com.marsel.dayemo.tools.NavigationRoute
+import com.marsel.dayemo.presentation.models.EmotionModel
+import com.marsel.dayemo.tools.Screens
+import timber.log.Timber
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MainScreen(
-    modifier: Modifier = Modifier
-) {
+fun MainScreen() {
 
     val navController = rememberNavController()
     var isNavigationBarVisible by remember { mutableStateOf(true) }
@@ -54,7 +59,7 @@ fun MainScreen(
         NavigationItem.Settings
     )
 
-    val currentRoute = remember { mutableStateOf(NavigationRoute.HOME.route) }
+    val currentRoute = remember { mutableStateOf(Screens.HOME.route) }
 
     val selectedItem = remember { mutableStateOf(0) }
 
@@ -67,7 +72,7 @@ fun MainScreen(
     LaunchedEffect(key1 = navController) {
         navController.currentBackStackEntryFlow.collect { backStackEntry ->
             isNavigationBarVisible = when (backStackEntry.destination.route) {
-                NavigationRoute.ADD.route -> false
+                Screens.ADD.route, Screens.ADD_EMOTION_DETAIL.route -> false
                 else -> true
             }
         }
@@ -146,10 +151,10 @@ fun ContentScreen(
 
     NavHost(
         navController = navHostController,
-        startDestination = NavigationRoute.HOME.route
+        startDestination = Screens.HOME.route
     ) {
         composable(
-            NavigationRoute.HOME.route
+            Screens.HOME.route
         ) {
             HomeScreen(
                 navHostController = navHostController
@@ -157,7 +162,7 @@ fun ContentScreen(
         }
 
         composable(
-            NavigationRoute.STATISTICS.route
+            Screens.STATISTICS.route
         ) {
             StatisticsScreen(
                 navHostController = navHostController
@@ -165,7 +170,7 @@ fun ContentScreen(
         }
 
         composable(
-            NavigationRoute.ADD.route
+            Screens.ADD.route
         ) {
             AddNewEmotionScreen(
                 navHostController = navHostController
@@ -173,7 +178,7 @@ fun ContentScreen(
         }
 
         composable(
-            NavigationRoute.CALENDAR.route
+            Screens.CALENDAR.route
         ) {
             CalendarScreen(
                 navHostController = navHostController
@@ -181,10 +186,24 @@ fun ContentScreen(
         }
 
         composable(
-            NavigationRoute.SETTINGS.route
+            Screens.SETTINGS.route
         ) {
             SettingsScreen(
                 navHostController = navHostController
+            )
+        }
+
+        composable(
+            "${Screens.ADD_EMOTION_DETAIL.route}/{emotionModelJson}",
+            arguments = listOf(
+                navArgument("emotionModelJson") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+            val emotionModelJson = backStackEntry.arguments?.getString("emotionModelJson")
+            val emotionModel = Gson().fromJson(emotionModelJson, EmotionModel::class.java)
+            AddEmotionDetail(
+                navHostController = navHostController,
+                emotionModel = emotionModel
             )
         }
     }

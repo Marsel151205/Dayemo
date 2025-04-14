@@ -12,6 +12,8 @@ navigation = "2.8.8"
 constraintlayout = "2.2.1"
 google-service = "4.4.2"
 firebase-bom = "33.11.0"
+gson = "2.12.1"
+timber = "5.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -32,6 +34,8 @@ navigation-compose = { group = "androidx.navigation", name = "navigation-compose
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

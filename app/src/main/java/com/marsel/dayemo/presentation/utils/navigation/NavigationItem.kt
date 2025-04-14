@@ -2,7 +2,7 @@ package com.marsel.dayemo.presentation.utils.navigation
 
 import androidx.annotation.DrawableRes
 import com.marsel.dayemo.R
-import com.marsel.dayemo.tools.NavigationRoute
+import com.marsel.dayemo.tools.Screens
 
 sealed class NavigationItem(
     var route: String,
@@ -10,27 +10,27 @@ sealed class NavigationItem(
 ) {
 
     data object Home: NavigationItem(
-        NavigationRoute.HOME.route,
+        Screens.HOME.route,
         R.drawable.ic_smile
     )
 
     data object Statistics: NavigationItem(
-        NavigationRoute.STATISTICS.route,
+        Screens.STATISTICS.route,
         R.drawable.ic_statistics
     )
 
     data object Add: NavigationItem(
-        NavigationRoute.ADD.route,
+        Screens.ADD.route,
         R.drawable.ic_plus
     )
 
     data object Calendar: NavigationItem(
-        NavigationRoute.CALENDAR.route,
+        Screens.CALENDAR.route,
         R.drawable.ic_calendar
     )
 
     data object Settings: NavigationItem(
-        NavigationRoute.SETTINGS.route,
+        Screens.SETTINGS.route,
         R.drawable.ic_settings
     )
 }

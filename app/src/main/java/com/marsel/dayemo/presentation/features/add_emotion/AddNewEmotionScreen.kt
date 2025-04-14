@@ -1,9 +1,7 @@
-package com.marsel.dayemo.presentation.features.addnewemotion
+package com.marsel.dayemo.presentation.features.add_emotion
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,6 +14,7 @@ import androidx.navigation.NavHostController
 import com.marsel.dayemo.R
 import com.marsel.dayemo.presentation.utils.EmotionRow
 import com.marsel.dayemo.presentation.utils.appbar.CustomAppBar
+import com.marsel.dayemo.tools.Screens
 
 @Composable
 fun AddNewEmotionScreen(
@@ -39,7 +38,13 @@ fun AddNewEmotionScreen(
                 .align(Alignment.TopStart)
         )
 
-
-        EmotionRow(modifier = Modifier.fillMaxWidth().align(Alignment.Center))
+        EmotionRow(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.Center),
+            onClickItem = { model ->
+                navHostController.navigate("${Screens.ADD_EMOTION_DETAIL.route}/$model")
+            }
+        )
     }
 }

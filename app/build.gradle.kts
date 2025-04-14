@@ -86,4 +86,10 @@ dependencies {
 
     // Firebase Analytics
     implementation(libs.firebase.analytics)
+
+    // Gson
+    implementation(libs.gson)
+
+    // Timber
+    implementation(libs.timber)
 }
